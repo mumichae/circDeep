@@ -12,7 +12,8 @@ from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from keras.layers import MaxPooling1D, AveragePooling1D, Bidirectional
 from keras.layers.advanced_activations import PReLU
 from keras.layers.normalization import BatchNormalization
-from sklearn.externals import joblib
+# from sklearn.externals import joblib
+import joblib
 import gensim, logging
 import multiprocessing
 import random
@@ -44,7 +45,6 @@ import keras
 from keras.layers import Dense, LSTM, Dropout, Bidirectional
 import gensim, logging
 from keras.models import load_model
-from keras.layers import Concatenate
 
 
 def suffle_text(file_input, file_output):
@@ -53,7 +53,7 @@ def suffle_text(file_input, file_output):
     entire_file = f.read()
     file_list = entire_file.split('\n')
     num_lines = len(file_list)
-    random_nums = random.sample(xrange(num_lines), num_lines)
+    random_nums = random.sample(range(num_lines), num_lines)
     for i in random_nums:
         oo.write(file_list[i] + "\n")
 
