@@ -1,50 +1,35 @@
-import keras
-from keras.preprocessing.text import Tokenizer
 from keras.preprocessing.sequence import pad_sequences
-from keras.layers import Dense, Dropout, Merge, Input
-from keras.callbacks import ModelCheckpoint, EarlyStopping
-from sklearn import metrics
-from keras import optimizers
-from gensim.models import Word2Vec
-from gensim.models.word2vec import LineSentence
-from keras.layers import Input, Embedding, LSTM, Convolution1D
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
-from keras.layers import MaxPooling1D, AveragePooling1D, Bidirectional
-from keras.layers.advanced_activations import PReLU
-from keras.layers.normalization import BatchNormalization
+import argparse
+import multiprocessing
+import os
+import pickle
+import random
+from collections import defaultdict
+from multiprocessing import Process
+
+import gensim
 # from sklearn.externals import joblib
 import joblib
-import gensim, logging
-import multiprocessing
-import random
-from keras.utils import np_utils, generic_utils
-from keras.layers.core import Dense, Dropout, Activation, Flatten
-from keras.layers import merge, Dropout, Flatten, Dense, Permute
-from keras.models import Model, Sequential
-import matplotlib.pyplot as plt
-from sklearn.preprocessing import LabelEncoder
-import os
-import pysam
-from collections import defaultdict
-import os
-import argparse
-import timeit
-import re
-import pyBigWig
-import tempfile 
-import sys
-import hashlib
-from multiprocessing import Process
-import keras
-from sklearn import metrics
-from gensim.models.word2vec import LineSentence
-import gensim, logging
-import pickle
+import logging
 import numpy as np
-import keras
+import pyBigWig
+import pysam
+from gensim.models.word2vec import LineSentence
+from keras import optimizers
+from keras.callbacks import ModelCheckpoint, EarlyStopping
+from keras.layers import Concatenate
 from keras.layers import Dense, LSTM, Dropout, Bidirectional
-import gensim, logging
+from keras.layers import Embedding, Convolution1D
+from keras.layers import MaxPooling1D
+from keras.layers.advanced_activations import PReLU
+from keras.layers.core import Activation
+from keras.layers.normalization import BatchNormalization
+from keras.models import Model, Sequential
 from keras.models import load_model
+from keras.preprocessing.sequence import pad_sequences
+from keras.utils import np_utils
+from sklearn.preprocessing import LabelEncoder
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
 
 
 def suffle_text(file_input, file_output):
@@ -1170,7 +1155,7 @@ def train_circDeep(data_dir, model_dir, genome, bigwig, gtf, positive_bed, negat
 
         cons_validation = []
     #model.add(concatenate(training_net))
-    model.add(Merge(training_net, mode='concat'))
+    model.add(Concatenate(training_net, mode='concat'))
 
     model.add(Dropout(0.2))
 
