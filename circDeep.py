@@ -17,7 +17,7 @@ import pysam
 from gensim.models.word2vec import LineSentence
 from keras import optimizers
 from keras.callbacks import ModelCheckpoint, EarlyStopping
-from keras.layers import Concatenate
+from keras.layers import Merge
 from keras.layers import Dense, LSTM, Dropout, Bidirectional
 from keras.layers import Embedding, Convolution1D
 from keras.layers import MaxPooling1D
@@ -1155,7 +1155,7 @@ def train_circDeep(data_dir, model_dir, genome, bigwig, gtf, positive_bed, negat
 
         cons_validation = []
     #model.add(concatenate(training_net))
-    model.add(Concatenate(training_net, mode='concat'))
+    model.add(Merge(training_net, mode='concat'))
 
     model.add(Dropout(0.2))
 
